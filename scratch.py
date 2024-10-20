@@ -5,6 +5,7 @@
 
 import cmd
 import turtle
+import socket
 
 class TurtleShell(cmd.Cmd):
     intro = 'Welcome to the Turtle Shell. Type help or ? to list commands.\n'
@@ -15,10 +16,31 @@ class TurtleShell(cmd.Cmd):
         self.turtle = turtle.Turtle()
         self.screen = turtle.Screen()
 
+    def do_connect(self, arg):
+        'connect to 127.0.0.1 <port>'
+        try:
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0)
+            sock.connect(("127.0.0.1",int(arg)))
+            sock.send(b'knock\n')
+            sock.close()
+        except socket.error as msg:
+            print('caught socket error')
+            print(msg)
+        except ValueError:
+            print('Invalid port')
+
     def do_forward(self, arg):
         'Move the turtle forward by the specified distance.'
         try:
             distance = int(arg)
+            self.turtle.forward(distance)
+        except ValueError:
+            print('Invalid distance.')
+
+    def do_turbo_forward(self, arg):
+        'Move the turtle forward by 10x the specified distance.'
+        try:
+            distance = 10*int(arg)
             self.turtle.forward(distance)
         except ValueError:
             print('Invalid distance.')
