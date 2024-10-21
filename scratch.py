@@ -1,6 +1,10 @@
 # garbage insertion to test update
 # second minor edit
 # third edit, this time from new 'iss2' branch
+# fifth edit, this time from new 'sfc_vs_win' branch
+
+# 10/20/2024: step one, merging/pulling this branch back into main
+
 
 
 # 10/20/2024 main currently checked out, trying to get main ahead so a merge is required
